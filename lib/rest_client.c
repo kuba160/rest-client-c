@@ -609,7 +609,9 @@ void RestFilter_execute_curl_request(RestFilter *self, RestClient *rest,
         }
         if(space == 2) {
             // correctly found 2 spaces.
-            strncpy(response->http_status, line, ERROR_MESSAGE_SIZE);
+            //strncpy(response->http_status, line, ERROR_MESSAGE_SIZE);
+            memset(response->http_status, 0, ERROR_MESSAGE_SIZE);
+            memcpy(response->http_status, line, strlen(line) < ERROR_MESSAGE_SIZE ? strlen(line) : ERROR_MESSAGE_SIZE);
         }
     }
 
